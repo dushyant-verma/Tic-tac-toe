@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic tac toe</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+    <div id="container">
+
+        <!--  Creating an grid for the game -->
+
+
+        <div class="row">
+
+            <div class="cell" id="cell-0" onclick="handleClick(0)"></div>
+            <div class="cell" id="cell-1" onclick="handleClick(1)"></div>
+            <div class="cell" id="cell-2" onclick="handleClick(2)"></div>
+
+        </div>
+        <div class="row">
+
+            <div class="cell" id="cell-3" onclick="handleClick(3)"></div>
+            <div class="cell" id="cell-4" onclick="handleClick(4)"></div>
+            <div class="cell" id="cell-5" onclick="handleClick(5)"></div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="cell" id="cell-6" onclick="handleClick(6)"></div>
+            <div class="cell" id="cell-7" onclick="handleClick(7)"></div>
+            <div class="cell" id="cell-8" onclick="handleClick(8)"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+
+        const cells = document.querySelectorAll('.cell'); // getting all the classes 
+        let currentPlayer = 'X'; // one player
+
+        function handleClick(index) {
+            const cell = cells[index];
+            if (cell.textContent !== '') return;
+            cell.textContent = currentPlayer;
+            checkWinner();
+            currentPlayer = currentPlayer === 'X' ? '0' : 'X';
+        }
+
+        function checkWinner() {
+
+            const winningConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],   // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6] //  diagonals
+
+            ];
+            for (const condition of winningConditions) {
+                const [a, b, c] = condition;
+
+                if (cells[a].textContent !== '' &&
+                    cells[a].textContent === cells[b].textContent &&
+                    cells[b].textContent === cells[c].textContent) {
+
+
+                    alert(`${cells[a].textContent} wins!`);
+                    restGame();
+                    return;
+                }
+
+            }
+
+        }
+
+        function resetGame(){
+
+            cells.forEach(cell => cell.textContent = '');
+            currentPlayer = "X";
+        }
+
+
+
+    </script>
+</body>
+
+</html>
